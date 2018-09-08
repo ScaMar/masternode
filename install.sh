@@ -154,9 +154,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
-content="\\$"\$(GET https://raw.githubusercontent.com/BlockchainTechLLC/3dcoin/master/configure.ac)
-localcontent="\\$"\$(cat /root/3dcoin/configure.ac)
-if [ "\\$"\""\\$"\$content"\\$"\" == "\\$"\""\\$"\$localcontent"\\$"\" ];then 
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+localrelease=$(3dcoin-cli -version | awk -F' ' '{print $NF}' | cut -d "-" -f1)
+if [ -z "$latestrelease" ] || [ "$latestrelease" == "$localrelease" ];then
 exit;
 else
 killall -9 3dcoind
@@ -323,9 +323,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
-content="\\$"\$(GET https://raw.githubusercontent.com/BlockchainTechLLC/3dcoin/master/configure.ac)
-localcontent="\\$"\$(cat /root/3dcoin/configure.ac)
-if [ "\\$"\""\\$"\$content"\\$"\" == "\\$"\""\\$"\$localcontent"\\$"\" ];then 
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+localrelease=$(3dcoin-cli -version | awk -F' ' '{print $NF}' | cut -d "-" -f1)
+if [ -z "$latestrelease" ] || [ "$latestrelease" == "$localrelease" ];then
 exit;
 else
 killall -9 3dcoind
@@ -393,9 +393,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
-content=\$(GET https://raw.githubusercontent.com/BlockchainTechLLC/3dcoin/master/configure.ac)
-localcontent=\$(cat /root/3dcoin/configure.ac)
-if [ '\$content' == '\$localcontent' ];then
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+localrelease=$(3dcoin-cli -version | awk -F' ' '{print $NF}' | cut -d "-" -f1)
+if [ -z "$latestrelease" ] || [ "$latestrelease" == "$localrelease" ];then
 exit;
 else
 killall -9 3dcoind
@@ -459,9 +459,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
-content=\$(GET https://raw.githubusercontent.com/BlockchainTechLLC/3dcoin/master/configure.ac)
-localcontent=\$(cat /root/3dcoin/configure.ac)
-if [ \"\$content\" == \"\$localcontent\" ];then
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+localrelease=$(3dcoin-cli -version | awk -F' ' '{print $NF}' | cut -d "-" -f1)
+if [ -z "$latestrelease" ] || [ "$latestrelease" == "$localrelease" ];then
 exit;
 else
 killall -9 3dcoind
@@ -646,9 +646,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
-content=$(GET https://raw.githubusercontent.com/BlockchainTechLLC/3dcoin/master/configure.ac)
-localcontent=$(cat /root/3dcoin/configure.ac)
-if [ "$content" == "$localcontent" ];then
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+localrelease=$(3dcoin-cli -version | awk -F' ' '{print $NF}' | cut -d "-" -f1)
+if [ -z "$latestrelease" ] || [ "$latestrelease" == "$localrelease" ];then
 exit;
 else
 killall -9 3dcoind
