@@ -1,6 +1,8 @@
 # Masternode
 3DCoin Masternode auto installer
 
+**Warning: The installation must be run as root user!**
+
 ****************************************
 Automatic install Single 3DCoin masternode
 ****************************************
