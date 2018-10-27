@@ -161,7 +161,7 @@ exit;
 else
 killall -9 3dcoind
 rm -f /usr/local/bin/3dcoind
-dir="\\$"\$(find / -type d -name "3dcoin" -print) 
+dir=/root/3dcoin 
 cd "\\$"\$dir
 git pull
 make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
@@ -330,7 +330,7 @@ exit;
 else
 killall -9 3dcoind
 rm -f /usr/local/bin/3dcoind
-dir="\\$"\$(find / -type d -name "3dcoin" -print) 
+dir=/root/3dcoin 
 cd "\\$"\$dir
 git pull
 make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
@@ -466,7 +466,7 @@ exit;
 else
 killall -9 3dcoind
 rm -f /usr/local/bin/3dcoind
-dir=\$(find / -type d -name "3dcoin" -print) 
+dir=/root/3dcoin 
 cd \$dir
 git pull
 make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
@@ -653,7 +653,7 @@ exit;
 else
 killall -9 3dcoind
 rm /usr/local/bin/3dcoind
-dir=$(find / -type d -name "3dcoin" -print) 
+dir=/root/3dcoin 
 cd $dir
 git pull
 make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
