@@ -493,7 +493,7 @@ fi
 ##################################################
 else
 printf "${YELLOW}##################################################################${NC}\n" 
-printf "${GREEN}Automatic installation for multi 3DCoin masternodes${NC}\n"
+printf "${GREEN}Automatic installation for single 3DCoin masternode${NC}\n"
 printf "${YELLOW}##################################################################${NC}\n" 
 sleep 1
 unset ip
