@@ -129,7 +129,7 @@ sleep 2
 cd 3dcoin
 ./autogen.sh
 ./configure --disable-tests --disable-gui-tests --without-gui
-make install
+make install-strip
 sleep 2
 cd ~
 rm -f ./.3dcoin/3dcoin.conf
@@ -164,7 +164,7 @@ rm -f /usr/local/bin/3dcoind
 dir=/root/3dcoin 
 cd "\\$"\$dir
 git pull
-make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
+make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
 3dcoind
 fi\" >> /usr/local/bin/update.sh
 cd ~
@@ -298,7 +298,7 @@ sleep 2
 cd 3dcoin
 ./autogen.sh
 ./configure --disable-tests --disable-gui-tests --without-gui
-make install
+make install-strip
 sleep 2
 cd ~
 rm -f ./.3dcoin/3dcoin.conf
@@ -333,7 +333,7 @@ rm -f /usr/local/bin/3dcoind
 dir=/root/3dcoin 
 cd "\\$"\$dir
 git pull
-make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
+make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
 3dcoind
 fi\" >> /usr/local/bin/update.sh
 cd ~
@@ -403,7 +403,7 @@ rm -f /usr/local/bin/3dcoind
 dir=\$(find / -type d -name '3dcoin' -print) 
 cd \$dir
 git pull
-make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
+make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
 3dcoind
 fi" >> /usr/local/bin/update.sh
 cd ~
@@ -469,7 +469,7 @@ rm -f /usr/local/bin/3dcoind
 dir=/root/3dcoin 
 cd \$dir
 git pull
-make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
+make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
 3dcoind
 fi" >> /usr/local/bin/update.sh
 cd ~
@@ -617,7 +617,7 @@ printf "${YELLOW}########################################${NC}\n"
 printf "${YELLOW}########################################${NC}\n"
 printf "${GREEN}Make install 3DCoin core${NC}\n"
 printf "${YELLOW}########################################${NC}\n"
-make install
+make install-strip
 sleep 2
 printf "${YELLOW}########################################${NC}\n"
 printf "${GREEN}Compile 3dcoin core done${NC}\n"
@@ -656,7 +656,7 @@ rm /usr/local/bin/3dcoind
 dir=/root/3dcoin 
 cd $dir
 git pull
-make install || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install;  }
+make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
 3dcoind
 fi' >> /usr/local/bin/update.sh
 cd ~
