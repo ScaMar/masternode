@@ -116,7 +116,11 @@ echo "Firewall/Swapfile setup successfully"
 echo ""
 echo  -e "${GREEN} Building 3dcoin core from source.....     ${STD}"
 cd ~
-sudo git clone https://github.com/BlockchainTechLLC/3dcoin.git
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+link="https://github.com/BlockchainTechLLC/3dcoin/archive/$latestrelease.zip"
+wget $link
+unzip $latestrelease.zip
+file=${latestrelease//[v]/3dcoin-}
 yes | sudo apt-get update 
 export LC_ALL=en_US.UTF-8
 yes | sudo apt-get install build-essential libtool autotools-dev autoconf automake autogen pkg-config libgtk-3-dev libssl-dev libevent-dev bsdmainutils
@@ -130,7 +134,7 @@ yes | sudo apt-get install libzmq3-dev
 sleep 2
 echo ""
 echo  -e "${GREEN} Compile 3dcoin core .....                 ${STD}"
-cd 3dcoin
+cd $file
 ./autogen.sh
 ./configure --disable-tests --disable-gui-tests --without-gui
 make install-strip
@@ -140,7 +144,6 @@ cd ~
 mkdir ./.3dcoin
 echo "$config" >> ./.3dcoin/3dcoin.conf
 cd ~
-dir=$( echo $(find / -type d -name '3dcoin') | cut -d' ' -f1)
 echo "#!/bin/bash
 HOME=/root
 LOGNAME=root
@@ -153,13 +156,19 @@ localrelease=\$(3dcoin-cli -version | awk -F' ' '{print \$NF}' | cut -d \"-\" -f
 if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; then
 exit;
 else
-cd $dir
-git checkout master
-make clean
-git pull
+cd ~
+localfile=\${localrelease//[v]/3dcoin-}
+rm -rf \$localfile
+link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
+wget \$link
+unzip \$latestrelease.zip
+file=\${latestrelease//[v]/3dcoin-}
+cd \$file
 3dcoin-cli stop
 sleep 10
-make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
+./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;
+cd ~
+rm \$latestrelease.zip
 reboot
 fi" >> /usr/local/bin/UpdateNode.sh
 cd ~
@@ -172,6 +181,8 @@ line="@reboot /usr/local/bin/3dcoind
 echo "$line" | crontab -u root -
 echo "3DCOIN Configured successfully"
 echo ""
+cd ~
+rm $latestrelease.zip
 reboot
 
 else
@@ -545,7 +556,11 @@ echo "Firewall/Swapfile setup successfully"
 echo ""
 echo  -e "${GREEN} Building 3dcoin core from source.....     ${STD}"
 cd ~
-sudo git clone https://github.com/BlockchainTechLLC/3dcoin.git
+latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+link="https://github.com/BlockchainTechLLC/3dcoin/archive/$latestrelease.zip"
+wget $link
+unzip $latestrelease.zip
+file=${latestrelease//[v]/3dcoin-}
 yes | sudo apt-get update 
 export LC_ALL=en_US.UTF-8
 yes | sudo apt-get install build-essential libtool autotools-dev autoconf automake autogen pkg-config libgtk-3-dev libssl-dev libevent-dev bsdmainutils
@@ -559,7 +574,7 @@ yes | sudo apt-get install libzmq3-dev
 sleep 2
 echo ""
 echo  -e "${GREEN} Compile 3dcoin core .....                 ${STD}"
-cd 3dcoin
+cd $file
 ./autogen.sh
 ./configure --disable-tests --disable-gui-tests --without-gui
 make install-strip
@@ -569,7 +584,6 @@ cd ~
 mkdir ./.3dcoin
 echo "$config" >> ./.3dcoin/3dcoin.conf
 cd ~
-dir=$( echo $(find / -type d -name '3dcoin') | cut -d' ' -f1)
 echo "#!/bin/bash
 HOME=/root
 LOGNAME=root
@@ -582,13 +596,19 @@ localrelease=\$(3dcoin-cli -version | awk -F' ' '{print \$NF}' | cut -d \"-\" -f
 if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; then
 exit;
 else
-cd $dir
-git checkout master
-make clean
-git pull
+cd ~
+localfile=\${localrelease//[v]/3dcoin-}
+rm -rf \$localfile
+link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
+wget \$link
+unzip \$latestrelease.zip
+file=\${latestrelease//[v]/3dcoin-}
+cd \$file
 3dcoin-cli stop
 sleep 10
-make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
+./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;
+cd ~
+rm \$latestrelease.zip
 reboot
 fi" >> /usr/local/bin/UpdateNode.sh
 cd ~
@@ -601,6 +621,8 @@ line="@reboot /usr/local/bin/3dcoind
 echo "$line" | crontab -u root -
 echo "3DCOIN Configured successfully"
 echo ""
+cd ~
+rm $latestrelease.zip
 reboot
 
 else
