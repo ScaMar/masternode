@@ -1,4 +1,3 @@
-
 #####################################################################################
 #                           Update 3DCoin Core V 0.14 	                            #
 #####################################################################################
@@ -28,20 +27,17 @@ read_options(){
 		1) Update="Update 3DCoin Masternode"
         echo ""
         echo  -e "${BLUE} Start ${Update}                    ${STD}"
-        dir=$( echo $(find / -type d -name '3dcoin') | cut -d' ' -f1)
-        cd $dir
         rm -f /usr/local/bin/check.sh
         rm -f /usr/local/bin/update.sh
         rm -f /usr/local/bin/UpdateNode.sh
         echo ""
-        echo  -e "${GREEN} Git checkout master               ${STD}"
-        git checkout master
-        echo ""
-        echo  -e "${GREEN} Make clean                        ${STD}"
-        make clean
-        echo ""
-        echo  -e "${GREEN} Git pull                          ${STD}"
-        git pull
+        cd ~
+        echo  -e "${GREEN} Get latest release                ${STD}"
+        latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        link="https://github.com/BlockchainTechLLC/3dcoin/archive/$latestrelease.zip"
+        wget $link
+        unzip $latestrelease.zip
+        file=${latestrelease//[Vv]/3dcoin-}
         echo ""
         echo  -e "${GREEN} Stop Cron                         ${STD}" 
         sudo /etc/init.d/cron stop
@@ -51,11 +47,14 @@ read_options(){
 		sleep 10
         echo ""		
         echo  -e "${GREEN} Make install                      ${STD}"
-        make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
+        cd $file
+        ./autogen.sh
+        ./configure --disable-tests --disable-gui-tests --without-gui
+        make install-strip
 		sleep 10
         echo ""
         echo  -e "${GREEN} Update crontab                    ${STD}"
-		echo "#!/bin/bash
+        echo "#!/bin/bash
 HOME=/root
 LOGNAME=root
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
@@ -67,13 +66,21 @@ localrelease=\$(3dcoin-cli -version | awk -F' ' '{print \$NF}' | cut -d \"-\" -f
 if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; then
 exit;
 else
-cd $dir
-git checkout master
-make clean
-git pull
+cd ~
+localfile=\${localrelease//[Vv]/3dcoin-}
+rm -rf \$localfile
+link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
+wget \$link
+unzip \$latestrelease.zip
+file=\${latestrelease//[Vv]/3dcoin-}
+cd \$file
 3dcoin-cli stop
 sleep 10
-make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
+./autogen.sh
+./configure --disable-tests --disable-gui-tests --without-gui
+make install-strip
+cd ~
+rm \$latestrelease.zip
 reboot
 fi" >> /usr/local/bin/UpdateNode.sh
         cd ~
@@ -90,6 +97,8 @@ fi" >> /usr/local/bin/UpdateNode.sh
         sudo /etc/init.d/cron start
         echo ""		
 	    echo  -e "${GREEN} Update Finished,rebooting server  ${STD}" 
+		cd ~
+        rm $latestrelease.zip
         reboot
 		echo ""
         exit 0;;
@@ -116,10 +125,9 @@ fi" >> /usr/local/bin/UpdateNode.sh
         while [ -z ${rootpass} ]; do
         read -s -p "Please Enter Password Root $i: " rootpass
         done
-
+		
+		
         sshpass -p $rootpass ssh -o StrictHostKeyChecking=no root@$i '
-        dir=$( echo $(find / -type d -name "3dcoin") | cut -d" " -f1)
-        cd $dir
         rm -f /usr/local/bin/check.sh
         rm -f /usr/local/bin/update.sh
         rm -f /usr/local/bin/UpdateNode.sh
@@ -127,17 +135,11 @@ fi" >> /usr/local/bin/UpdateNode.sh
         echo "-----------------------------------------------------"
         echo  -e "${GREEN} Git checkout master               ${STD}"
         echo "-----------------------------------------------------"
-        git checkout master
-        echo ""
-        echo "-----------------------------------------------------"
-        echo  -e "${GREEN} Make clean                        ${STD}"
-        echo "-----------------------------------------------------"
-        make clean
-        echo ""
-        echo "-----------------------------------------------------"
-        echo  -e "${GREEN} Git pull                          ${STD}"
-        echo "-----------------------------------------------------"
-        git pull
+        latestrelease=$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"'"\\$"\"tag_name"\\$"\":'"' | sed -E '"'s/.*"\\$"\"([^"\\$"\"]+)"\\$"\".*/\1/'"')
+        link="https://github.com/BlockchainTechLLC/3dcoin/archive/$latestrelease.zip"
+        wget $link
+        unzip $latestrelease.zip
+        file=${latestrelease//[Vv]/3dcoin-}
         echo ""
         echo "-----------------------------------------------------"
         echo  -e "${GREEN} Stop Cron                         ${STD}"
@@ -147,13 +149,16 @@ fi" >> /usr/local/bin/UpdateNode.sh
         echo "-----------------------------------------------------"
         echo  -e "${GREEN} Stop 3Dcoin core                  ${STD}"
         echo "-----------------------------------------------------"
+        cd $file
         3dcoin-cli stop
 		sleep 10
         echo ""		
         echo "-----------------------------------------------------"
         echo  -e "${GREEN} Make install                      ${STD}"
         echo "-----------------------------------------------------"
-        make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
+        ./autogen.sh 
+		./configure --disable-tests --disable-gui-tests --without-gui 
+		make install-strip
 		sleep 10
         echo ""
         echo "-----------------------------------------------------"
@@ -168,16 +173,24 @@ SHELL=/bin/sh
 PWD=/root
 latestrelease=\$(curl --silent https://api.github.com/repos/BlockchainTechLLC/3dcoin/releases/latest | grep '"'"\\$"\"tag_name"\\$"\":'"' | sed -E '"'s/.*"\\$"\"([^"\\$"\"]+)"\\$"\".*/\1/'"')
 localrelease=\$(3dcoin-cli -version | awk -F'"' '"' '"'{print "\\$"\$NF}'"' | cut -d \"-\" -f1)
-if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; then
+if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; then 
 exit;
 else
-cd $dir
-git checkout master
-make clean
-git pull
+cd ~
+localfile=\${localrelease//[Vv]/3dcoin-}
+rm -rf \$localfile
+link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
+wget \$link
+unzip \$latestrelease.zip
+file=\${latestrelease//[Vv]/3dcoin-}
+cd \$file
 3dcoin-cli stop
 sleep 10
-make install-strip || { ./autogen.sh && ./configure --disable-tests --disable-gui-tests --without-gui && make install-strip;  }
+./autogen.sh
+./configure --disable-tests --disable-gui-tests --without-gui
+make install-strip
+cd ~
+rm \$latestrelease.zip
 reboot
 fi" >> /usr/local/bin/UpdateNode.sh
         cd ~
@@ -189,10 +202,12 @@ fi" >> /usr/local/bin/UpdateNode.sh
 0 0 * * * /usr/local/bin/UpdateNode.sh"
         echo "$line" | crontab -u root -
         echo "Crontab updated successfully"
-        echo ""
+        echo "" 
         echo "-----------------------------------------------------"
 	    echo  -e "${GREEN} Update Finished,rebooting server  ${STD}" 
         echo "-----------------------------------------------------"
+		cd ~
+        rm $latestrelease.zip
         reboot
 		echo ""'
         done
