@@ -22,6 +22,6 @@ bash install.sh
 
 # Update to last version:
 ```
-curl -o- https://raw.githubusercontent.com/BlockchainTechLLC/masternode/master/AutoUpdate.sh | > AutoUpdate.sh
+curl -o- https://raw.githubusercontent.com/BlockchainTechLLC/masternode/master/AutoUpdate.sh > AutoUpdate.sh
 bash AutoUpdate.sh
 ```
