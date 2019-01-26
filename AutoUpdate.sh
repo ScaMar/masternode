@@ -85,6 +85,7 @@ if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; 
 exit;
 else
 cd ~
+apt install unzip
 localfile=\${localrelease//[Vv]/3dcoin-}
 rm -rf \$localfile
 link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
@@ -207,6 +208,7 @@ if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; 
 exit;
 else
 cd ~
+apt install unzip
 localfile=\${localrelease//[Vv]/3dcoin-}
 rm -rf \$localfile
 link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
@@ -289,6 +291,7 @@ if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; 
 exit;
 else
 cd ~
+apt install unzip
 localfile=\${localrelease//[Vv]/3dcoin-}
 rm -rf \$localfile
 link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
@@ -382,6 +385,7 @@ if [ -z \"\$latestrelease\" ] || [ \"\$latestrelease\" == \"\$localrelease\" ]; 
 exit;
 else
 cd ~
+apt install unzip
 localfile=\${localrelease//[Vv]/3dcoin-}
 rm -rf \$localfile
 link=\"https://github.com/BlockchainTechLLC/3dcoin/archive/\$latestrelease.zip\"
