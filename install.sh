@@ -97,8 +97,8 @@ externalip=$ip
 
 echo ""
 echo  -e "${GREEN} Install packages.....                     ${STD}"
-yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 yes | apt-get update
+yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 echo ""
 echo  -e "${GREEN} Firewall/Swapfile setup.....              ${STD}"
 sudo ufw allow ssh/tcp
@@ -263,8 +263,8 @@ LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
 configdata=\"'$config'\"
-yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 yes | apt-get update
+yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 sudo ufw allow ssh/tcp
 sudo ufw limit ssh/tcp 
 sudo ufw allow 6695/tcp
@@ -388,8 +388,8 @@ LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
 configdata=\"'$config'\"
-yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 yes | apt-get update
+yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 sudo ufw allow ssh/tcp
 sudo ufw limit ssh/tcp 
 sudo ufw allow 6695/tcp
@@ -537,8 +537,8 @@ externalip=$ip
 
 echo ""
 echo  -e "${GREEN} Install packages.....                     ${STD}"
-yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 yes | apt-get update
+yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 echo ""
 echo  -e "${GREEN} Firewall/Swapfile setup.....              ${STD}"
 sudo ufw allow ssh/tcp
@@ -713,8 +713,8 @@ LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
 configdata=\"'$config'\"
-yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 yes | apt-get update
+yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 sudo ufw allow ssh/tcp
 sudo ufw limit ssh/tcp 
 sudo ufw allow 6695/tcp
@@ -847,8 +847,8 @@ LANG=en_US.UTF-8
 SHELL=/bin/sh
 PWD=/root
 configdata=\"'$config'\"
-yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 yes | apt-get update
+yes | apt-get install ufw python virtualenv git unzip pv nano htop libwww-perl
 sudo ufw allow ssh/tcp
 sudo ufw limit ssh/tcp 
 sudo ufw allow 6695/tcp
