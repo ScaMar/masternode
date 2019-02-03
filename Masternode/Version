@@ -1,0 +1,5 @@
+{
+  "name": "Masternode 3DCoin",
+  "version": "1.0.1",
+  "description": "Bash install & update Masternode 3DCoin on Ubuntu 16.04 LTS x64"
+}
